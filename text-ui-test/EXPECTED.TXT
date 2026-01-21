@@ -1,7 +1,55 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+--------------------{datetime}---------------------
+Hii, i am
+,------.
+|  .---',---. ,--.--.,--,--,
+|  `--,| .-. :|  .--'|      \
+|  |`  \   --.|  |   |  ||  |
+`--'    `----'`--'   `--''--'
+Whats up?
 
+You: 
+Fern: ? idk that command
+You:
+Fern: what u want todo
+You:
+Fern: Added ToDo (test)
+You:
+Fern: by what date? use /by thx
+You:
+Fern: by what date? use /by thx
+You:
+Fern: Added Deadline (test correct)
+You:
+Fern: dates? use /from and /to k thx
+You:
+Fern: dates? use /from and /to k thx
+You:
+Fern: dates? use /from and /to k thx
+You:
+Fern: Added Event (test correct)
+You:
+Fern:
+01. [To Do][ ] test
+02. [Deadline][ ] test correct (by: Tuesday)
+03. [Event][ ] test correct (From: Monday ,To: Tuesday)
+You:
+Fern: it was alr unmarked bruh
+You:
+(test correct) marked
+You:
+Fern: u alr completed
+You:
+Fern:
+01. [To Do][ ] test
+02. [Deadline][X] test correct (by: Tuesday)
+03. [Event][ ] test correct (From: Monday ,To: Tuesday)
+You:
+(test correct) unmarked
+You:
+Fern:
+01. [To Do][ ] test
+02. [Deadline][ ] test correct (by: Tuesday)
+03. [Event][ ] test correct (From: Monday ,To: Tuesday)
+You:
+Fern: Byebye~~
+--------------------{datetime}---------------------

@@ -27,7 +27,7 @@ public class Fern {
 
         Scanner scanner = new Scanner(System.in);
         while(true) {
-            System.out.print("You: ");
+            System.out.print("You: \n");
             String userInput = scanner.nextLine().trim();
             String[] userInputSplit = userInput.split(" ");
             String firstWord = userInputSplit[0].toLowerCase();
@@ -65,7 +65,11 @@ public class Fern {
                     }
                     break;
                 case "todo":
-                    taskDescription = userInput.substring(5);
+                    taskDescription = userInput.substring(4).trim();
+                    if (taskDescription.isEmpty()) {
+                        System.out.println("Fern: what u want todo");
+                        continue;
+                    }
                     tasks[counter] = new ToDo(taskDescription);
                     System.out.println("Fern: Added ToDo (" + taskDescription + ")");
                     if (counter < 99) {
@@ -116,6 +120,7 @@ public class Fern {
      * Prints the list of tasks
      **/
     private static void printList() {
+        System.out.println("Fern: ");
         for(int i = 0; i < counter; i++){
             int idx = i + 1;
             System.out.println((idx < 10 ? ("0" + idx) : idx) + ". "

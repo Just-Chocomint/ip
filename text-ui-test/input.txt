@@ -1,0 +1,18 @@
+test no command
+todo
+todo test
+deadline
+deadline test no deadline
+deadline test correct /by Tuesday
+event
+event test no time
+event test no to /from Monday
+event test correct /from Monday /to Tuesday
+list
+unmark 2
+mark 2
+mark 2
+list
+unmark 2
+list
+bye
