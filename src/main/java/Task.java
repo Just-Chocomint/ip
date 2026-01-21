@@ -12,7 +12,7 @@ public class Task {
     }
 
     public String getCompletionString() {
-        return "[" + (isCompleted ? "x" : " ") + "] "; // mark done task with X
+        return "[" + (isCompleted ? "✓" : " ") + "] "; // mark done task with X
     }
 
     public boolean getCompletion() {
@@ -21,6 +21,11 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    @Override
+    public String toString(){
+        return getCompletionString() + this.description;
     }
 }
 
