@@ -9,6 +9,8 @@ event test no time
 event test no to /from Monday
 event test correct /from Monday /to Tuesday
 list
+mark
+unmark
 unmark 2
 mark 2
 mark 2

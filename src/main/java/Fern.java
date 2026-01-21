@@ -10,7 +10,7 @@ public class Fern {
     /**
      * Starts the chatbot
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FernException{
         String name = ",------.  \n"
                 + "|  .---',---. ,--.--.,--,--,  \n"
                 + "|  `--,| .-. :|  .--'|      \\ \n"
@@ -23,7 +23,7 @@ public class Fern {
                 + "---------------------";
 
         System.out.println(line);
-        System.out.println("Hii, i am\n" + name + "Whats up?\n" );
+        say("Hii, i am\n" + name + "Whats up?");
 
         Scanner scanner = new Scanner(System.in);
         while(true) {
@@ -38,93 +38,100 @@ public class Fern {
                 printList();
                 continue;
             }
-
-            String taskDescription = "";
-            switch (firstWord) {
-                case "mark":
-                case "unmark":
-                    if (userInputSplit.length < 2) {
-                        System.out.println("Fern: enter the task number u want to mark bro");
-                        continue;
-                    }
-                    try { // try block to parse task number from string to int
-                        int idx = Integer.parseInt(userInputSplit[1]) - 1;
-                        if (idx >= counter || idx < 0) {
-                            System.out.println("Fern: that task no exist");
-                        } else if (firstWord.equals("mark") && tasks[idx].getCompletion()) {
-                            System.out.println("Fern: u alr completed");
-                        } else if (firstWord.equals("unmark") && !tasks[idx].getCompletion()) {
-                            System.out.println("Fern: it was alr unmarked bruh");
+            try {
+                String taskDescription = "";
+                switch (firstWord) {
+                    case "mark":
+                    case "unmark":
+                        if (userInputSplit.length < 2) {
+                            throw new IncompleteCommandException("Task nunmber");
+                        }
+                        try { // try block to parse task number from string to int
+                            int idx = Integer.parseInt(userInputSplit[1]) - 1;
+                            if (idx >= counter || idx < 0) {
+                                throw new FernException("Fern: that task no exist");
+                            } else if (firstWord.equals("mark") && tasks[idx].getCompletion()) {
+                                throw new FernException("Fern: u alr completed");
+                            } else if (firstWord.equals("unmark") && !tasks[idx].getCompletion()) {
+                                throw new FernException("Fern: it was alr unmarked bruh");
+                            } else {
+                                tasks[idx].toggleCompletion();
+                                String completion = tasks[idx].isCompleted ? "marked" : "unmarked";
+                                say("(" + tasks[idx].getDescription() + ") " + completion);
+                            }
+                        } catch (NumberFormatException e) {
+                            throw new FernException("Fern: what task is that");
+                        }
+                        break;
+                    case "todo":
+                        taskDescription = userInput.substring(4).trim();
+                        if (taskDescription.isEmpty()) {
+                            throw new IncompleteCommandException("Description");
+                        }
+                        tasks[counter] = new ToDo(taskDescription);
+                        say("Added ToDo (" + taskDescription + ")");
+                        if (counter < 99) {
+                            counter++;
+                        }
+                        break;
+                    case "deadline":
+                        int startOfDate = userInput.indexOf("/by");
+                        if (startOfDate > 0) {
+                            taskDescription = userInput.substring(8, startOfDate).trim();
+                            String by = userInput.substring(startOfDate + 4);
+                            tasks[counter] = new Deadline(taskDescription, by);
+                            say("Added Deadline (" + taskDescription + ")");
+                            if (counter < 99) {
+                                counter++;
+                            }
                         } else {
-                            tasks[idx].toggleCompletion();
-                            String completion = tasks[idx].isCompleted ? "marked" : "unmarked";
-                            System.out.println("(" + tasks[idx].getDescription() + ") " + completion);
+                            throw new IncompleteCommandException("/by");
                         }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Fern: what task is that");
-                    }
-                    break;
-                case "todo":
-                    taskDescription = userInput.substring(4).trim();
-                    if (taskDescription.isEmpty()) {
-                        System.out.println("Fern: what u want todo");
-                        continue;
-                    }
-                    tasks[counter] = new ToDo(taskDescription);
-                    System.out.println("Fern: Added ToDo (" + taskDescription + ")");
-                    if (counter < 99) {
-                        counter++;
-                    }
-                    break;
-                case "deadline":
-                    int startOfDate = userInput.indexOf("/by");
-                    if (startOfDate > 0) {
-                        taskDescription = userInput.substring(8, startOfDate).trim();
-                        String by = userInput.substring(startOfDate + 4);
-                        tasks[counter] = new Deadline(taskDescription, by);
-                        System.out.println("Fern: Added Deadline (" + taskDescription + ")");
-                        if (counter < 99) {
-                            counter++;
+                        break;
+                    case "event":
+                        int startOfFrom = userInput.indexOf("/from");
+                        int startOfTo = userInput.indexOf("/to");
+                        if (startOfFrom > 0 && startOfTo > 0) {
+                            taskDescription = userInput.substring(5, startOfFrom).trim();
+                            String from = userInput.substring(startOfFrom + 6, startOfTo);
+                            String to = userInput.substring(startOfTo + 4);
+                            tasks[counter] = new Event(taskDescription, from, to);
+                            say("Added Event (" + taskDescription + ")");
+                            if (counter < 99) {
+                                counter++;
+                            }
+                        } else {
+                            throw new IncompleteCommandException("/from and /to");
                         }
-                    } else {
-                        System.out.println("Fern: by what date? use /by thx");
-                    }
-                    break;
-                case "event":
-                    int startOfFrom = userInput.indexOf("/from");
-                    int startOfTo = userInput.indexOf("/to");
-                    if (startOfFrom > 0 && startOfTo > 0) {
-                        taskDescription = userInput.substring(5, startOfFrom).trim();
-                        String from = userInput.substring(startOfFrom + 6, startOfTo);
-                        String to = userInput.substring(startOfTo + 4);
-                        tasks[counter] = new Event(taskDescription, from, to);
-                        System.out.println("Fern: Added Event (" + taskDescription + ")");
-                        if (counter < 99) {
-                            counter++;
-                        }
-                    } else {
-                        System.out.println("Fern: dates? use /from and /to k thx");
-                    }
-                    break;
-                default:
-                    System.out.println("Fern: ? idk that command");
+                        break;
+                    default:
+                        throw new UnkownCommandException();
+                }
+            } catch (FernException e){
+                say(e.getMessage());
             }
 
         }
-        System.out.println("Fern: Byebye~~");
+        say("Byebye~~");
         System.out.println(line);
         scanner.close();
     }
 
     /**
-     * Prints the list of tasks
+     * Print the list of tasks
      **/
     private static void printList() {
-        System.out.println("Fern: ");
+        say("");
         for(int i = 0; i < counter; i++){
             int idx = i + 1;
             System.out.println((idx < 10 ? ("0" + idx) : idx) + ". "
                     + tasks[i].toString());
         }
+    }
+    /**
+     * Make fern speak
+     **/
+    private static void say(String msg) {
+        System.out.println("Fern: " + msg);
     }
 }
