@@ -1,11 +1,10 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Fern {
-    private static final Task[] tasks = new Task[100];
-    // counter is the amount of tasks added
-    private static int counter = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>(100);
 
     /**
      * Starts the chatbot
@@ -46,44 +45,27 @@ public class Fern {
                         if (userInputSplit.length < 2) {
                             throw new IncompleteCommandException("Task nunmber");
                         }
-                        try { // try block to parse task number from string to int
-                            int idx = Integer.parseInt(userInputSplit[1]) - 1;
-                            if (idx >= counter || idx < 0) {
-                                throw new FernException("Fern: that task no exist");
-                            } else if (firstWord.equals("mark") && tasks[idx].getCompletion()) {
-                                throw new FernException("Fern: u alr completed");
-                            } else if (firstWord.equals("unmark") && !tasks[idx].getCompletion()) {
-                                throw new FernException("Fern: it was alr unmarked bruh");
-                            } else {
-                                tasks[idx].toggleCompletion();
-                                String completion = tasks[idx].isCompleted ? "marked" : "unmarked";
-                                say("(" + tasks[idx].getDescription() + ") " + completion);
-                            }
-                        } catch (NumberFormatException e) {
-                            throw new FernException("Fern: what task is that");
-                        }
+                        int markIdx = checkTaskExist(userInputSplit);
+                        tasks.get(markIdx).toggleCompletion();
+                        String completion = tasks.get(markIdx).isCompleted ? "marked" : "unmarked";
+                        say("(" + tasks.get(markIdx).getDescription() + ") " + completion);
+
                         break;
                     case "todo":
                         taskDescription = userInput.substring(4).trim();
                         if (taskDescription.isEmpty()) {
                             throw new IncompleteCommandException("Description");
                         }
-                        tasks[counter] = new ToDo(taskDescription);
+                        tasks.add(new ToDo(taskDescription));
                         say("Added ToDo (" + taskDescription + ")");
-                        if (counter < 99) {
-                            counter++;
-                        }
                         break;
                     case "deadline":
                         int startOfDate = userInput.indexOf("/by");
                         if (startOfDate > 0) {
                             taskDescription = userInput.substring(8, startOfDate).trim();
                             String by = userInput.substring(startOfDate + 4);
-                            tasks[counter] = new Deadline(taskDescription, by);
+                            tasks.add(new Deadline(taskDescription, by));
                             say("Added Deadline (" + taskDescription + ")");
-                            if (counter < 99) {
-                                counter++;
-                            }
                         } else {
                             throw new IncompleteCommandException("/by");
                         }
@@ -95,14 +77,18 @@ public class Fern {
                             taskDescription = userInput.substring(5, startOfFrom).trim();
                             String from = userInput.substring(startOfFrom + 6, startOfTo);
                             String to = userInput.substring(startOfTo + 4);
-                            tasks[counter] = new Event(taskDescription, from, to);
+                            tasks.add(new Event(taskDescription, from, to));
                             say("Added Event (" + taskDescription + ")");
-                            if (counter < 99) {
-                                counter++;
-                            }
                         } else {
                             throw new IncompleteCommandException("/from and /to");
                         }
+                        break;
+                    case "delete":
+                        if (userInputSplit.length < 2) {
+                            throw new IncompleteCommandException("Task nunmber");
+                        }
+                        int deleteIdx = checkTaskExist(userInputSplit);
+                        delete(deleteIdx);
                         break;
                     default:
                         throw new UnkownCommandException();
@@ -118,14 +104,42 @@ public class Fern {
     }
 
     /**
+     * Check that task exists
+     * Return index if there is no problem
+     **/
+    private static int checkTaskExist(String[] userInputSplit) throws FernException{
+        try { // try block to parse task number from string to int
+            int idx = Integer.parseInt(userInputSplit[1]) - 1;
+            if (idx >= tasks.size() || idx < 0) {
+                throw new FernException("Fern: that task no exist");
+            } else if (userInputSplit[0].equals("mark") && tasks.get(idx).getCompletion()) {
+                throw new FernException("Fern: u alr completed");
+            } else if (userInputSplit[0].equals("unmark") && !tasks.get(idx).getCompletion()) {
+                throw new FernException("Fern: it was alr unmarked bruh");
+            }
+            return idx;
+        } catch (NumberFormatException e) {
+            throw new FernException("Fern: what task is that");
+        }
+    }
+
+    /**
+     * Delete task from list
+     **/
+    private static void delete(int idx) {
+        say("(" + tasks.get(idx).toString() + ") deleted. Left " + (tasks.size() - 1) + " Tasks");
+        tasks.remove(idx);
+    }
+
+    /**
      * Print the list of tasks
      **/
     private static void printList() {
         say("");
-        for(int i = 0; i < counter; i++){
+        for(int i = 0; i < tasks.size(); i++){
             int idx = i + 1;
             System.out.println((idx < 10 ? ("0" + idx) : idx) + ". "
-                    + tasks[i].toString());
+                    + tasks.get(i).toString());
         }
     }
     /**

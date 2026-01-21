@@ -1,4 +1,4 @@
---------------------22/01/2026 01.50 am---------------------
+--------------------22/01/2026 03.40 am---------------------
 Fern: Hii, i am
 ,------.
 |  .---',---. ,--.--.,--,--,
@@ -34,6 +34,10 @@ Fern:
 You:
 Fern: Fern: your command incomplete, missing:Task nunmber
 You:
+Fern: Fern: that task no exist
+You:
+Fern: Fern: that task no exist
+You:
 Fern: Fern: your command incomplete, missing:Task nunmber
 You:
 Fern: Fern: it was alr unmarked bruh
@@ -54,5 +58,13 @@ Fern:
 02. [Deadline][ ] test correct (by: Tuesday)
 03. [Event][ ] test correct (From: Monday | To: Tuesday)
 You:
+Fern: Fern: your command incomplete, missing:Task nunmber
+You:
+Fern: ([To Do][ ] test) deleted. Left 2 Tasks
+You:
+Fern:
+01. [Deadline][ ] test correct (by: Tuesday)
+02. [Event][ ] test correct (From: Monday | To: Tuesday)
+You:
 Fern: Byebye~~
---------------------22/01/2026 01.50 am---------------------
+--------------------22/01/2026 03.40 am---------------------

@@ -10,11 +10,16 @@ event test no to /from Monday
 event test correct /from Monday /to Tuesday
 list
 mark
+mark 1000
+mark -1
 unmark
 unmark 2
 mark 2
 mark 2
 list
 unmark 2
+list
+delete
+delete 1
 list
 bye
