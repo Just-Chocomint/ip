@@ -3,6 +3,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Fern {
+    private static final Task[] tasks = new Task[100];
+    // counter is the amount of tasks added
+    private static int counter = 0;
+
+    /**
+     * Starts the chatbot
+     */
     public static void main(String[] args) {
         String name = ",------.  \n"
                 + "|  .---',---. ,--.--.,--,--,  \n"
@@ -15,22 +22,47 @@ public class Fern {
                 + LocalDateTime.now().format(timeFormatter)
                 + "---------------------";
 
-        String[] storage = new String[100];
-        int counter = 0;
-
         System.out.println(line);
         System.out.println("Hii, i am\n" + name + "Whats up?\n" );
+
         Scanner scanner = new Scanner(System.in);
-        String userInput = "";
         while(true) {
             System.out.print("You: ");
-            userInput = scanner.nextLine();
-            if (userInput.equalsIgnoreCase("bye")){
+            String userInput = scanner.nextLine();
+            String[] userInputSplit = userInput.split(" ");
+            String firstWord = userInputSplit[0].toLowerCase();
+
+            if (userInput.equals("")){
+                System.out.println("Fern: ?");
+            } else if (userInput.equalsIgnoreCase("bye")){
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
-                printList(storage, counter);
+                printList();
+            } else if (firstWord.equals("mark") || firstWord.equals("unmark")){
+                if (userInputSplit.length < 2) {
+                    System.out.println("Fern: enter the task number u want to mark bro");
+                    continue;
+                }
+                try {
+                    // curTask is the task user chose to mark/unmark
+                    int idx = Integer.parseInt(userInputSplit[1]) - 1;
+                    if (idx >= counter || idx < 0) {
+                        System.out.println("Fern: that task no exist");
+                    } else if (firstWord.equals("mark") && tasks[idx].getCompletion()) {
+                        System.out.println("Fern: u alr completed");
+                    } else if (firstWord.equals("unmark") && !tasks[idx].getCompletion()) {
+                        System.out.println("Fern: it was alr unmarked bruh");
+                    } else {
+                        tasks[idx].toggleCompletion();
+                        String completion = tasks[idx].isCompleted ? "marked" : "unmarked";
+                        System.out.println("(" + tasks[idx].getDescription() + ") " + completion);
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Fern: what task is that");
+                }
+
             } else {
-                storage[counter] = userInput;
+                tasks[counter] = new Task(userInput);
                 System.out.println("Fern: Added item (" + userInput + ")");
                 if (++counter == 100) {
                     counter = 0;
@@ -41,9 +73,15 @@ public class Fern {
         System.out.println(line);
         scanner.close();
     }
-    private static void printList(String[] list,int count) {
-        for(int i = 0; i < count; i++){
-            System.out.println(i + 1 + ". " + list[i]);
+
+    /**
+     * Prints the list of tasks
+     **/
+    private static void printList() {
+        for(int i = 0; i < counter; i++){
+            System.out.println((i + 1) + ". "
+                    + tasks[i].getCompletionString()
+                    + tasks[i].getDescription());
         }
     }
 }
