@@ -1,3 +1,4 @@
+C:\Projects\CS2103T\ip\text-ui-test
 -----------------------------------------
 Fern: Hii, i am
 ,------.
@@ -17,6 +18,8 @@ Fern: Fern: your command incomplete, missing:/by
 You:
 Fern: Fern: your command incomplete, missing:/by
 You:
+Fern: Date format incorrect, try d/M/yyyy or Day Month Year
+You:
 Fern: Added Deadline (test correct)
 You:
 Fern: Fern: your command incomplete, missing:/from and /to
@@ -25,12 +28,14 @@ Fern: Fern: your command incomplete, missing:/from and /to
 You:
 Fern: Fern: your command incomplete, missing:/from and /to
 You:
+Fern: Date format incorrect, try d/M/yyyy or Day Month Year
+You:
 Fern: Added Event (test correct)
 You:
 Fern:
 01. [To Do][ ] test
-02. [Deadline][ ] test correct (by: Tuesday)
-03. [Event][ ] test correct (From: Monday | To: Tuesday)
+02. [Deadline][ ] test correct (by: 18/01/2026)
+03. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
 You:
 Fern: Fern: your command incomplete, missing:Task nunmber
 You:
@@ -48,23 +53,23 @@ Fern: Fern: u alr completed
 You:
 Fern:
 01. [To Do][ ] test
-02. [Deadline][X] test correct (by: Tuesday)
-03. [Event][ ] test correct (From: Monday | To: Tuesday)
+02. [Deadline][X] test correct (by: 18/01/2026)
+03. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
 You:
 Fern: (test correct) unmarked
 You:
 Fern:
 01. [To Do][ ] test
-02. [Deadline][ ] test correct (by: Tuesday)
-03. [Event][ ] test correct (From: Monday | To: Tuesday)
+02. [Deadline][ ] test correct (by: 18/01/2026)
+03. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
 You:
 Fern: Fern: your command incomplete, missing:Task nunmber
 You:
 Fern: ([To Do][ ] test) deleted. Left 2 Tasks
 You:
 Fern:
-01. [Deadline][ ] test correct (by: Tuesday)
-02. [Event][ ] test correct (From: Monday | To: Tuesday)
+01. [Deadline][ ] test correct (by: 18/01/2026)
+02. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
 You:
 Fern: Byebye~~
 -----------------------------------------

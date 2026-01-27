@@ -1,26 +1,28 @@
-public class Event extends Task{
-    protected String from;
-    protected String to;
+import java.time.LocalDate;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task{
+    protected LocalDate from;
+    protected LocalDate to;
+
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, String from, String to, boolean completed) {
+    public Event(String description, LocalDate from, LocalDate to, boolean completed) {
         super(description, completed);
         this.from = from;
         this.to = to;
     }
 
     @Override
-    public String getFirstDate() {
+    public LocalDate getFirstDate() {
         return this.from;
     }
 
     @Override
-    public String getSecondDate() {
+    public LocalDate getSecondDate() {
         return this.to;
     }
 
@@ -32,6 +34,14 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[Event]" + super.toString() + " (From: " + from + "| To: " + to +")";
+        try {
+            return "[Event]" + super.toString() + " (From: "
+                    + DateHandler.dateToString(from) + "| To: "
+                    + DateHandler.dateToString(to) +")";
+
+        } catch (FernException e) {
+            return "[Event]" + super.toString() + " (From: " + from + "| To: " + to +")";
+        }
+
     }
 }

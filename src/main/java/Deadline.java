@@ -1,17 +1,19 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task {
-    protected String by;
-    public Deadline(String description, String by) {
+    protected LocalDate by;
+    public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(String description, String by, boolean completed) {
+    public Deadline(String description, LocalDate by, boolean completed) {
         super(description, completed);
         this.by = by;
     }
 
     @Override
-    public String getFirstDate() {
+    public LocalDate getFirstDate() {
         return this.by;
     }
 
@@ -23,6 +25,10 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[Deadline]" + super.toString() + " (by: " + by + ")";
+        try {
+            return "[Deadline]" + super.toString() + " (by: " + DateHandler.dateToString(by) + ")";
+        } catch (FernException e) {
+            return "[Deadline]" + super.toString() + " (by: " + by + ")";
+        }
     }
 }
