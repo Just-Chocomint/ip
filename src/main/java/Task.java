@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Task {
     protected String description;
     protected boolean isCompleted;
@@ -16,12 +18,12 @@ public class Task {
         return "No type";
     }
 
-    public String getFirstDate(){
-        return "No date";
+    public LocalDate getFirstDate(){
+        return LocalDate.now();
     }
 
-    public String getSecondDate(){
-        return "No date";
+    public LocalDate getSecondDate(){
+        return LocalDate.now();
     }
 
     public void toggleCompletion() {

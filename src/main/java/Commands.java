@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class Commands {
     private final TaskList tasks;
@@ -78,7 +79,8 @@ public class Commands {
         int startOfDate = userInput.indexOf("/by");
         if (startOfDate > 0) {
             String taskDescription = userInput.substring(8, startOfDate).trim();
-            String by = userInput.substring(startOfDate + 4);
+            String byString = userInput.substring(startOfDate + 4);
+            LocalDate by = DateHandler.stringToDate(byString.trim());
             tasks.add(new Deadline(taskDescription, by));
             UI.say("Added Deadline (" + taskDescription + ")");
         } else {
@@ -94,8 +96,10 @@ public class Commands {
         int startOfTo = userInput.indexOf("/to");
         if (startOfFrom > 0 && startOfTo > 0) {
             String taskDescription = userInput.substring(5, startOfFrom).trim();
-            String from = userInput.substring(startOfFrom + 6, startOfTo);
-            String to = userInput.substring(startOfTo + 4);
+            String fromString = userInput.substring(startOfFrom + 6, startOfTo);
+            String toString = userInput.substring(startOfTo + 4);
+            LocalDate from = DateHandler.stringToDate(fromString.trim());
+            LocalDate to = DateHandler.stringToDate(toString.trim());
             tasks.add(new Event(taskDescription, from, to));
             UI.say("Added Event (" + taskDescription + ")");
         } else {

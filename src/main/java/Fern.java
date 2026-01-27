@@ -11,8 +11,7 @@ public class Fern {
     public static void main(String[] args) {
         try {
             storage.loadStorage(tasks);
-        } catch (IOException e) {
-            System.out.println(e);
+        } catch (IOException | FernException e) {
             UI.say("Failed to load file, reload app pls");
             System.exit(1);
         }

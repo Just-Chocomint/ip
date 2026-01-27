@@ -3,6 +3,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.LocalDate;
 
 public class Storage {
     private final Path PATH = Paths.get("./data/fern.txt");
@@ -10,7 +12,7 @@ public class Storage {
      * Initialise Storage if it doesn't exist, load into taskList if exists
      * @param taskList task list to load tasks into
      **/
-    public void loadStorage(TaskList taskList) throws IOException {
+    public void loadStorage(TaskList taskList) throws IOException, FernException {
         System.out.println(Paths.get("").toAbsolutePath());
 
         if (Files.notExists((PATH))) {
@@ -27,10 +29,13 @@ public class Storage {
                     taskList.addWithoutStorage(new ToDo(splitLine[2], completed));
                     break;
                 case "D":
-                    taskList.addWithoutStorage(new Deadline(splitLine[2], splitLine[3], completed));
+                    LocalDate by = DateHandler.stringToDate(splitLine[3]);
+                    taskList.addWithoutStorage(new Deadline(splitLine[2], by, completed));
                     break;
                 case "E":
-                    taskList.addWithoutStorage(new Event(splitLine[2], splitLine[3], splitLine[4], completed));
+                    LocalDate from = DateHandler.stringToDate(splitLine[3]);
+                    LocalDate to = DateHandler.stringToDate(splitLine[4]);
+                    taskList.addWithoutStorage(new Event(splitLine[2], from, to, completed));
                     break;
                 default:
             }
@@ -38,15 +43,15 @@ public class Storage {
     }
 
     // Add task into file
-    public void add(Task task) throws IOException {
+    public void add(Task task) throws IOException, FernException {
         String taskString = task.getType() + "///"
                 + (task.getIsCompleted() ? "1" : "0") + "///"
                 + task.getDescription();
         if (task.getType().equals("D")) {
-            taskString += "///" + task.getFirstDate();
+            taskString += "///" + DateHandler.dateToString(task.getFirstDate());
         } else if (task.getType().equals("E")) {
-            taskString += "///" + task.getFirstDate();
-            taskString += "///" + task.getSecondDate();
+            taskString += "///" + DateHandler.dateToString(task.getFirstDate());
+            taskString += "///" + DateHandler.dateToString(task.getFirstDate());
         }
         taskString += "\n";
         Files.writeString(PATH, taskString, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
@@ -55,7 +60,7 @@ public class Storage {
     /**
      * Overwrite storage file with task list
      **/
-    public void updateAll(TaskList taskList) throws IOException {
+    public void updateAll(TaskList taskList) throws IOException, FernException {
         Files.writeString(PATH, "");
         for (Task task: taskList.getAll()) {
             add(task);
