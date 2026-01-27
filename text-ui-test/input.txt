@@ -4,10 +4,12 @@ todo test
 deadline
 deadline test no deadline
 deadline test correct /by Tuesday
+deadline test correct /by 18 Jan
 event
 event test no time
 event test no to /from Monday
 event test correct /from Monday /to Tuesday
+event test correct /from 2 jan /to 3 jan
 list
 mark
 mark 1000
