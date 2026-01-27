@@ -1,12 +1,19 @@
+import java.io.IOException;
+
 public class Commands {
     private final TaskList tasks;
     private String[] userInputSplit;
     private String userInput;
+    private Storage storage = new Storage();
 
     public Commands(TaskList taskList){
         this.tasks = taskList;
     }
 
+    /**
+     * Handle user input into commands
+     * @param userInput full user input
+     **/
     public void handle(String userInput) throws FernException{
         this.userInput = userInput;
         this.userInputSplit = userInput.split(" ");
@@ -36,12 +43,17 @@ public class Commands {
     /**
      * Handle marking/unmarking tasks
      **/
-    private void handleMark() throws FernException{
+    private void handleMark() throws FernException {
         if (userInputSplit.length < 2) {
             throw new IncompleteCommandException("Task nunmber");
         }
         int markIdx = checkTaskExist();
         tasks.get(markIdx).toggleCompletion();
+        try {
+            storage.updateAll(tasks);
+        } catch (IOException e) {
+            throw new FernException("Fail to update storage");
+        }
         String completion = tasks.get(markIdx).isCompleted ? "marked" : "unmarked";
         UI.say("(" + tasks.get(markIdx).getDescription() + ") " + completion);
     }
@@ -54,7 +66,8 @@ public class Commands {
         if (taskDescription.isEmpty()) {
             throw new IncompleteCommandException("Description");
         }
-        tasks.add(new ToDo(taskDescription));
+        ToDo newTask = new ToDo(taskDescription);
+        tasks.add(newTask);
         UI.say("Added ToDo (" + taskDescription + ")");
     }
 

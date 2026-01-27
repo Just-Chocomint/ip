@@ -1,13 +1,21 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Fern {
     private static final TaskList tasks = new TaskList();
     private static final Commands commands = new Commands(tasks);
+    private static final Storage storage = new Storage();
     /**
      * Starts the chatbot
      */
-    public static void main(String[] args) throws FernException{
-        tasks.loadDB();
+    public static void main(String[] args) {
+        try {
+            storage.loadStorage(tasks);
+        } catch (IOException e) {
+            System.out.println(e);
+            UI.say("Failed to load file, reload app pls");
+            System.exit(1);
+        }
         UI.start();
         Scanner scanner = new Scanner(System.in);
         while(true) {
