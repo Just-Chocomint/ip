@@ -1,3 +1,5 @@
+package fern;
+
 /**
  * Class for handling all the UI elements like greetings
  */

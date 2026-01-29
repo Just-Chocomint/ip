@@ -1,3 +1,5 @@
+package fern;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,8 +18,6 @@ public class Storage {
      * @param taskList task list to load tasks into
      **/
     public void loadStorage(TaskList taskList) throws IOException, FernException {
-        System.out.println(Paths.get("").toAbsolutePath());
-
         if (Files.notExists((PATH))) {
             Files.createDirectories(PATH.getParent());
             Files.createFile(PATH);
