@@ -1,31 +1,52 @@
 import java.time.LocalDate;
 
+/**
+ * Class for default task
+ */
 public class Task {
     protected String description;
     protected boolean isCompleted;
 
+    /**
+     * Constructor that takes in description
+     **/
     public Task(String description) {
         this.description = description;
         this.isCompleted = false;
     }
 
+    /**
+     * Constructor that takes in description and completion status
+     **/
     public Task(String description, boolean isCompleted) {
         this.description = description;
         this.isCompleted = isCompleted;
     }
 
+    /**
+     * Returns the type of current task
+     **/
     public String getType(){
         return "No type";
     }
 
-    public LocalDate getFirstDate(){
+    /**
+     * Returns the first date e.g. deadline and event start
+     **/
+    public LocalDate getFirstDate() {
         return LocalDate.now();
     }
 
-    public LocalDate getSecondDate(){
+    /**
+     * Returns the second date e.g. event end
+     **/
+    public LocalDate getSecondDate() {
         return LocalDate.now();
     }
 
+    /**
+     * Toggles completion from true to false/ false to true
+     **/
     public void toggleCompletion() {
         isCompleted ^= true;
     }
@@ -47,7 +68,7 @@ public class Task {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getCompletionString() + this.description;
     }
 }

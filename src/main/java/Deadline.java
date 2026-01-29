@@ -1,14 +1,24 @@
 import java.time.LocalDate;
 
+/**
+ * Class for tasks with deadline
+ */
 public class Deadline extends Task {
     protected LocalDate by;
+
+    /**
+     * Constructor that takes in description and deadline
+     **/
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
-    public Deadline(String description, LocalDate by, boolean completed) {
-        super(description, completed);
+    /**
+     * Constructor that takes in description, deadline and the completion status if the task
+     **/
+    public Deadline(String description, LocalDate by, boolean isCompleted) {
+        super(description, isCompleted);
         this.by = by;
     }
 
@@ -17,9 +27,8 @@ public class Deadline extends Task {
         return this.by;
     }
 
-    // Return's the type of this task "D" for Deadline
     @Override
-    public String getType(){
+    public String getType() {
         return "D";
     }
 

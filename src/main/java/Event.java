@@ -1,17 +1,26 @@
 import java.time.LocalDate;
 
-public class Event extends Task{
+/**
+ * Class for tasks with start and end date
+ */
+public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Constructor that takes in description, from and to
+     **/
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    public Event(String description, LocalDate from, LocalDate to, boolean completed) {
-        super(description, completed);
+    /**
+     * Constructor that takes in description, from, to and completion status of task
+     **/
+    public Event(String description, LocalDate from, LocalDate to, boolean isCompleted) {
+        super(description, isCompleted);
         this.from = from;
         this.to = to;
     }
@@ -28,7 +37,7 @@ public class Event extends Task{
 
     // Return's the type of this task "E" for Event
     @Override
-    public String getType(){
+    public String getType() {
         return "E";
     }
 
