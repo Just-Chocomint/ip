@@ -1,15 +1,25 @@
+package fern;
+
+/**
+ * Class for tasks with no dates
+ */
 public class ToDo extends Task {
+    /**
+     * Constructor that takes in description
+     **/
     public ToDo(String description) {
         super(description);
     }
 
+    /**
+     * Constructor that takes in description and completion status
+     **/
     public ToDo(String description, boolean completed) {
         super(description, completed);
     }
 
-    // Return's the type of this task "T" for Todo
     @Override
-    public String getType(){
+    public String getType() {
         return "T";
     }
 

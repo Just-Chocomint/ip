@@ -1,4 +1,3 @@
-C:\Projects\CS2103T\ip\text-ui-test
 -----------------------------------------
 Fern: Hii, i am
 ,------.
@@ -33,9 +32,11 @@ You:
 Fern: Added Event (test correct)
 You:
 Fern:
-01. [To Do][ ] test
-02. [Deadline][ ] test correct (by: 18/01/2026)
-03. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
+01. [Deadline][ ] test correct (by: 18/01/2026)
+02. [Event][ ] test correct (From: 02/01/2026| To: 02/01/2026)
+03. [To Do][ ] test
+04. [Deadline][ ] test correct (by: 18/01/2026)
+05. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
 You:
 Fern: Fern: your command incomplete, missing:Task nunmber
 You:
@@ -52,24 +53,30 @@ You:
 Fern: Fern: u alr completed
 You:
 Fern:
-01. [To Do][ ] test
-02. [Deadline][X] test correct (by: 18/01/2026)
-03. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
+01. [Deadline][ ] test correct (by: 18/01/2026)
+02. [Event][X] test correct (From: 02/01/2026| To: 02/01/2026)
+03. [To Do][ ] test
+04. [Deadline][ ] test correct (by: 18/01/2026)
+05. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
 You:
 Fern: (test correct) unmarked
 You:
 Fern:
-01. [To Do][ ] test
-02. [Deadline][ ] test correct (by: 18/01/2026)
-03. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
+01. [Deadline][ ] test correct (by: 18/01/2026)
+02. [Event][ ] test correct (From: 02/01/2026| To: 02/01/2026)
+03. [To Do][ ] test
+04. [Deadline][ ] test correct (by: 18/01/2026)
+05. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
 You:
 Fern: Fern: your command incomplete, missing:Task nunmber
 You:
-Fern: ([To Do][ ] test) deleted. Left 2 Tasks
+Fern: ([Deadline][ ] test correct (by: 18/01/2026)) deleted. Left 4 Tasks
 You:
 Fern:
-01. [Deadline][ ] test correct (by: 18/01/2026)
-02. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
+01. [Event][ ] test correct (From: 02/01/2026| To: 02/01/2026)
+02. [To Do][ ] test
+03. [Deadline][ ] test correct (by: 18/01/2026)
+04. [Event][ ] test correct (From: 02/01/2026| To: 03/01/2026)
 You:
 Fern: Byebye~~
 -----------------------------------------

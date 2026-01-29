@@ -1,20 +1,23 @@
+package fern;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.time.LocalDate;
 
+/**
+ * Class to handle storing and retrieving data from file
+ */
 public class Storage {
     private final Path PATH = Paths.get("./data/fern.txt");
+
     /**
      * Initialise Storage if it doesn't exist, load into taskList if exists
      * @param taskList task list to load tasks into
      **/
     public void loadStorage(TaskList taskList) throws IOException, FernException {
-        System.out.println(Paths.get("").toAbsolutePath());
-
         if (Files.notExists((PATH))) {
             Files.createDirectories(PATH.getParent());
             Files.createFile(PATH);
@@ -42,7 +45,9 @@ public class Storage {
         }
     }
 
-    // Add task into file
+    /**
+    * Add tasks to storage
+    **/
     public void add(Task task) throws IOException, FernException {
         String taskString = task.getType() + "///"
                 + (task.getIsCompleted() ? "1" : "0") + "///"
@@ -58,8 +63,8 @@ public class Storage {
     }
 
     /**
-     * Overwrite storage file with task list
-     **/
+    * Overwrite storage file with task list
+    **/
     public void updateAll(TaskList taskList) throws IOException, FernException {
         Files.writeString(PATH, "");
         for (Task task: taskList.getAll()) {

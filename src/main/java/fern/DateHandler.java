@@ -1,10 +1,14 @@
+package fern;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * Class for parsing and formatting dates
+ */
 public class DateHandler {
     private static final DateTimeFormatter[] FORMATS = {
             new DateTimeFormatterBuilder()
@@ -32,6 +36,10 @@ public class DateHandler {
             DateTimeFormatter.ofPattern("d/M/yyyy"),
     };
 
+    /**
+     * Converts string into LocalDate
+     * @param userInput Date string to be converted to LocalDate object
+     **/
     public static LocalDate stringToDate(String userInput) throws FernException {
         LocalDate dateTime = LocalDate.now();
         for (DateTimeFormatter format : FORMATS) {
@@ -45,6 +53,10 @@ public class DateHandler {
         throw new FernException("Date format incorrect, try d/M/yyyy or Day Month Year");
     }
 
+    /**
+     * Converts LocalDate object into string
+     * @param dateTime LocalDate object to be converted to string
+     **/
     public static String dateToString(LocalDate dateTime) throws FernException {
         try {
             return dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));

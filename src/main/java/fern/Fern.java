@@ -1,6 +1,11 @@
+package fern;
+
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Main class to start the chatbot
+ */
 public class Fern {
     private static final TaskList tasks = new TaskList();
     private static final Commands commands = new Commands(tasks);
@@ -15,12 +20,13 @@ public class Fern {
             UI.say("Failed to load file, reload app pls");
             System.exit(1);
         }
+
         UI.start();
         Scanner scanner = new Scanner(System.in);
         while(true) {
             System.out.print("You: \n");
             String userInput = scanner.nextLine().trim();
-            if (userInput.equalsIgnoreCase("bye")){
+            if (userInput.equalsIgnoreCase("bye")) {
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 UI.printList(tasks);
