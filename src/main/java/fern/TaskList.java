@@ -53,6 +53,19 @@ public class TaskList {
     }
 
     /**
+     * Search Task that contains keyword
+     **/
+    public ArrayList<Task> find(String search) {
+        ArrayList<Task> results = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(search)) {
+                results.add(task);
+            }
+        }
+        return results;
+    }
+
+    /**
      * Retrieve item at index idx
      * @param idx index of task to be gotten
      **/
