@@ -5,7 +5,11 @@ package fern;
  */
 public class UI {
     private final static String LINE = "-----------------------------------------";
-
+    private final static String NAME = ",------.  \n"
+            + "|  .---',---. ,--.--.,--,--,  \n"
+            + "|  `--,| .-. :|  .--'|      \\ \n"
+            + "|  |`  \\   --.|  |   |  ||  | \n"
+            + "`--'    `----'`--'   `--''--' \n";
     /**
      * Print the list of tasks
      **/
@@ -29,13 +33,8 @@ public class UI {
      * Make fern say greetings
      **/
     public static void start() {
-        String name = ",------.  \n"
-                + "|  .---',---. ,--.--.,--,--,  \n"
-                + "|  `--,| .-. :|  .--'|      \\ \n"
-                + "|  |`  \\   --.|  |   |  ||  | \n"
-                + "`--'    `----'`--'   `--''--' \n";
         System.out.println(LINE);
-        say("Hii, i am\n" + name + "Whats up?");
+        say("Hii, i am\n" + NAME + "Whats up?");
     }
 
     /**

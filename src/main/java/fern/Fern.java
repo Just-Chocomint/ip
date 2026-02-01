@@ -38,7 +38,6 @@ public class Fern {
             } catch (FernException e){
                 UI.say(e.getMessage());
             }
-
         }
         UI.end();
         scanner.close();

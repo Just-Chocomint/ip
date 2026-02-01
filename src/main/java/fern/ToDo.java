@@ -4,6 +4,7 @@ package fern;
  * Class for tasks with no dates
  */
 public class ToDo extends Task {
+    private static final String TYPE = "T";
     /**
      * Constructor that takes in description
      **/
@@ -20,7 +21,7 @@ public class ToDo extends Task {
 
     @Override
     public String getType() {
-        return "T";
+        return TYPE;
     }
 
     @Override
