@@ -10,6 +10,7 @@ import java.util.Locale;
  * Class for parsing and formatting dates
  */
 public class DateHandler {
+    /** Different date formats the user might enter */
     private static final DateTimeFormatter[] FORMATS = {
             new DateTimeFormatterBuilder()
                     .parseCaseInsensitive()

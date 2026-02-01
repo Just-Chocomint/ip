@@ -37,7 +37,9 @@ public class Event extends Task {
         return this.to;
     }
 
-    // Return's the type of this task "E" for Event
+    /**
+     * Return "E" for Events
+     **/
     @Override
     public String getType() {
         return "E";
