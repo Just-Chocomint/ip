@@ -42,12 +42,13 @@ public class DateHandler {
      **/
     public static LocalDate stringToDate(String userInput) throws FernException {
         LocalDate dateTime = LocalDate.now();
+        // Loop through the formats to parse user input
         for (DateTimeFormatter format : FORMATS) {
             try {
                 dateTime = LocalDate.parse(userInput.trim(), format);
                 return dateTime;
-            } catch(DateTimeParseException e) {
-                // skip to try next format
+            } catch (DateTimeParseException e) {
+                // skip to next format to check
             }
         }
         throw new FernException("Date format incorrect, try d/M/yyyy or Day Month Year");

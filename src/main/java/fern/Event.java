@@ -6,8 +6,9 @@ import java.time.LocalDate;
  * Class for tasks with start and end date
  */
 public class Event extends Task {
-    protected LocalDate from;
-    protected LocalDate to;
+    private final LocalDate from;
+    private final LocalDate to;
+    private static final String TYPE = "E";
 
     /**
      * Constructor that takes in description, from and to
@@ -40,7 +41,7 @@ public class Event extends Task {
     // Return's the type of this task "E" for Event
     @Override
     public String getType() {
-        return "E";
+        return TYPE;
     }
 
     @Override

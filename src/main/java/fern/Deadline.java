@@ -6,7 +6,8 @@ import java.time.LocalDate;
  * Class for tasks with deadline
  */
 public class Deadline extends Task {
-    protected LocalDate by;
+    private final LocalDate by;
+    private static final String TYPE = "D";
 
     /**
      * Constructor that takes in description and deadline
@@ -31,7 +32,7 @@ public class Deadline extends Task {
 
     @Override
     public String getType() {
-        return "D";
+        return TYPE;
     }
 
     @Override
