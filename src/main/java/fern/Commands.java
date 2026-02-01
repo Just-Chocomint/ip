@@ -2,6 +2,7 @@ package fern;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Executes the commands that user inputs
@@ -45,6 +46,9 @@ public class Commands {
             break;
         case "delete":
             handleDelete();
+            break;
+        case "find":
+            handleFind();
             break;
         default:
             throw new UnknownCommandException();
@@ -133,6 +137,19 @@ public class Commands {
         String deletedText = tasks.get(deleteIdx).toString();
         tasks.remove(deleteIdx);
         UI.say("(" + deletedText + ") deleted. Left " + tasks.size() + " Tasks");
+    }
+
+    /**
+     * Handle searching for keyword
+     * @throws FernException if no keyword to search
+     **/
+    private void handleFind() throws FernException {
+        if (userInputSplit.length < 2) {
+            throw new IncompleteCommandException("Keyword missing");
+        }
+        String keyword = userInput.substring(5).trim();
+        ArrayList<Task> found = tasks.find(keyword);
+        UI.printList(found);
     }
 
     /**

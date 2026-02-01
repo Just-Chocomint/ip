@@ -1,5 +1,7 @@
 package fern;
 
+import java.util.ArrayList;
+
 /**
  * Class for handling all the UI elements like greetings
  */
@@ -7,9 +9,21 @@ public class UI {
     private final static String LINE = "-----------------------------------------";
 
     /**
-     * Print the list of tasks
+     * Print all items in TaskList
      **/
     public static void printList(TaskList tasks) {
+        say("");
+        for(int i = 0; i < tasks.size(); i++) {
+            int idx = i + 1;
+            System.out.println((idx < 10 ? ("0" + idx) : idx) + ". "
+                    + tasks.get(i).toString());
+        }
+    }
+
+    /**
+     * Print all items in ArrayList
+     **/
+    public static void printList(ArrayList<Task> tasks) {
         say("");
         for(int i = 0; i < tasks.size(); i++) {
             int idx = i + 1;
