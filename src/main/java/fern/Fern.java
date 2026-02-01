@@ -10,6 +10,7 @@ public class Fern {
     private static final TaskList tasks = new TaskList();
     private static final Commands commands = new Commands(tasks);
     private static final Storage storage = new Storage();
+    
     /**
      * Starts the chatbot
      */
