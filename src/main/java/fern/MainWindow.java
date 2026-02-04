@@ -30,16 +30,27 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        String fernIntroduction = "Hello!! These are my commands:\n" +
+                "- list\n" +
+                "- mark <task_number> (from list command)\n" +
+                "- delete <task_number> (from list command)\n" +
+                "- todo <task_description>\n" +
+                "- event <task_description> /from <start_date> /to <end_date>\n" +
+                "- deadline <task_description> /by <deadline>\n" +
+                "- find <keyword>";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getFernDialog(fernIntroduction, fernImage)
+        );
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Fern d) {
-        fern = d;
+    /** Injects the Fern instance */
+    public void setFern(Fern f) {
+        fern = f;
     }
 
     /**
-     * Creates two Dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two Dialog boxes, one echoing user input and the other containing Ferb's reply and then appends them to
      * the Dialog container. Clears the user input after processing.
      */
     @FXML

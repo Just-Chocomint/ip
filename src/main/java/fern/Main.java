@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 // Code from https://se-education.org/guides/tutorials/javaFxPart4.html
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Fern using FXML.
  */
 public class Main extends Application {
 
@@ -24,7 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(fern);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setFern(fern);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
