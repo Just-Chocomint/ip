@@ -42,4 +42,8 @@ public class Fern {
         UI.end();
         scanner.close();
     }
+
+    public String getResponse(String input) {
+        return input;
+    }
 }
