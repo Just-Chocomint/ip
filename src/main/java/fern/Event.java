@@ -54,7 +54,7 @@ public class Event extends Task {
                     + DateHandler.dateToString(to) +")";
 
         } catch (FernException e) {
-            return "[Event]" + super.toString() + " (From: " + from + "| To: " + to +")";
+            return "[Event]" + super.toString() + " (From: " + from + " | To: " + to +")";
         }
 
     }

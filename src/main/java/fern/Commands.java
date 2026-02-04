@@ -25,7 +25,7 @@ public class Commands {
     * Handle user input into commands
     * @param userInput full user input
     **/
-    public void handle(String userInput) throws FernException {
+    public String handle(String userInput) throws FernException {
         this.userInput = userInput;
         this.userInputSplit = userInput.split(" ");
         String firstWord = userInputSplit[0].toLowerCase();
@@ -33,23 +33,17 @@ public class Commands {
         case "mark":
             // Fall through
         case "unmark":
-            handleMark();
-            break;
+            return handleMark();
         case "todo":
-            handleToDo();
-            break;
+            return handleToDo();
         case "deadline":
-            handleDeadline();
-            break;
+            return handleDeadline();
         case "event":
-            handleEvent();
-            break;
+            return handleEvent();
         case "delete":
-            handleDelete();
-            break;
+            return handleDelete();
         case "find":
-            handleFind();
-            break;
+            return handleFind();
         default:
             throw new UnknownCommandException();
         }
@@ -59,7 +53,7 @@ public class Commands {
      * Handle marking/unmarking tasks
      * @throws FernException if updating storage fails
      **/
-    private void handleMark() throws FernException {
+    private String handleMark() throws FernException {
         if (userInputSplit.length < 2) {
             throw new IncompleteCommandException("Task nunmber");
         }
@@ -71,35 +65,35 @@ public class Commands {
             throw new FernException("Fail to update storage");
         }
         String completion = tasks.get(markIdx).isCompleted ? "marked" : "unmarked";
-        UI.say("(" + tasks.get(markIdx).getDescription() + ") " + completion);
+        return ("(" + tasks.get(markIdx).getDescription() + ") " + completion);
     }
 
     /**
      * Handle checking and adding todo tasks
      * @throws FernException if inputted task is empty
      **/
-    private void handleToDo() throws FernException {
+    private String handleToDo() throws FernException {
         String taskDescription = userInput.substring(4).trim();
         if (taskDescription.isEmpty()) {
             throw new IncompleteCommandException("Description");
         }
         ToDo newTask = new ToDo(taskDescription);
         tasks.add(newTask);
-        UI.say("Added ToDo (" + taskDescription + ")");
+        return ("Added ToDo (" + taskDescription + ")");
     }
 
     /**
      * Handle checking and adding Deadline tasks
      * @throws FernException if missing deadline in user input
      **/
-    private void handleDeadline() throws FernException {
+    private String handleDeadline() throws FernException {
         int startOfDate = userInput.indexOf("/by");
         if (startOfDate > 0) {
             String taskDescription = userInput.substring(8, startOfDate).trim();
             String byString = userInput.substring(startOfDate + 4);
             LocalDate by = DateHandler.stringToDate(byString.trim());
             tasks.add(new Deadline(taskDescription, by));
-            UI.say("Added Deadline (" + taskDescription + ")");
+            return ("Added Deadline (" + taskDescription + ")");
         } else {
             throw new IncompleteCommandException("/by");
         }
@@ -109,7 +103,7 @@ public class Commands {
      * Handle checking and adding Event tasks
      * @throws FernException if /from or /to is missing
      **/
-    private void handleEvent() throws FernException {
+    private String handleEvent() throws FernException {
         int startOfFrom = userInput.indexOf("/from");
         int startOfTo = userInput.indexOf("/to");
         if (startOfFrom > 0 && startOfTo > 0) {
@@ -119,7 +113,7 @@ public class Commands {
             LocalDate from = DateHandler.stringToDate(fromString.trim());
             LocalDate to = DateHandler.stringToDate(toString.trim());
             tasks.add(new Event(taskDescription, from, to));
-            UI.say("Added Event (" + taskDescription + ")");
+            return ("Added Event (" + taskDescription + ")");
         } else {
             throw new IncompleteCommandException("/from and /to");
         }
@@ -129,27 +123,27 @@ public class Commands {
      * Handle deleting tasks
      * @throws FernException if task to be deleted not specified
      **/
-    private void handleDelete() throws FernException {
+    private String handleDelete() throws FernException {
         if (userInputSplit.length < 2) {
             throw new IncompleteCommandException("Task nunmber");
         }
         int deleteIdx = checkTaskExist();
         String deletedText = tasks.get(deleteIdx).toString();
         tasks.remove(deleteIdx);
-        UI.say("(" + deletedText + ") deleted. Left " + tasks.size() + " Tasks");
+        return ("(" + deletedText + ") deleted. Left " + tasks.size() + " Tasks");
     }
 
     /**
      * Handle searching for keyword
      * @throws FernException if no keyword to search
      **/
-    private void handleFind() throws FernException {
+    private String handleFind() throws FernException {
         if (userInputSplit.length < 2) {
             throw new IncompleteCommandException("Keyword missing");
         }
         String keyword = userInput.substring(5).trim();
         ArrayList<Task> found = tasks.find(keyword);
-        UI.printList(found);
+        return UI.printList(found);
     }
 
     /**

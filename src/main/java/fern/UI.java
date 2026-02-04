@@ -15,25 +15,34 @@ public class UI {
     /**
      * Print all items in TaskList
      **/
-    public static void printList(TaskList tasks) {
-        say("");
+    public static String printList(TaskList tasks) {
+        StringBuilder ret = new StringBuilder();
         for(int i = 0; i < tasks.size(); i++) {
             int idx = i + 1;
-            System.out.println((idx < 10 ? ("0" + idx) : idx) + ". "
-                    + tasks.get(i).toString());
+            ret.append((idx < 10 ? "0" + idx : idx))
+                    .append(". ")
+                    .append(tasks.get(i).toString())
+                    .append("\n");
         }
+        if (ret.isEmpty()) {
+            return "You got nothing in list";
+        }
+        return ret.toString();
     }
 
     /**
      * Print all items in ArrayList
      **/
-    public static void printList(ArrayList<Task> tasks) {
-        say("");
+    public static String printList(ArrayList<Task> tasks) {
+        StringBuilder ret = new StringBuilder();
         for(int i = 0; i < tasks.size(); i++) {
             int idx = i + 1;
-            System.out.println((idx < 10 ? ("0" + idx) : idx) + ". "
-                    + tasks.get(i).toString());
+            ret.append((idx < 10 ? "0" + idx : idx))
+                    .append(". ")
+                    .append(tasks.get(i).toString())
+                    .append("\n");
         }
+        return ret.toString();
     }
 
     /**

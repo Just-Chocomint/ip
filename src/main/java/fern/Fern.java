@@ -10,7 +10,15 @@ public class Fern {
     private static final TaskList tasks = new TaskList();
     private static final Commands commands = new Commands(tasks);
     private static final Storage storage = new Storage();
-    
+
+    static {
+        try {
+            storage.loadStorage(tasks);
+        } catch (IOException | FernException e) {
+            UI.say("Failed to load file, reload app pls");
+            System.exit(1);
+        }
+    }
     /**
      * Starts the chatbot
      */
@@ -41,5 +49,19 @@ public class Fern {
         }
         UI.end();
         scanner.close();
+    }
+
+    public String getResponse(String userInput) {
+        if (userInput.equalsIgnoreCase("bye")) {
+            return "Bye Bye~~";
+        } else if (userInput.equalsIgnoreCase("list")) {
+            return UI.printList(tasks);
+        } else {
+            try {
+                return commands.handle(userInput);
+            } catch (FernException e){
+                return (e.getMessage());
+            }
+        }
     }
 }
