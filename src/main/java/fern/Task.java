@@ -50,11 +50,7 @@ public class Task {
      * Toggles completion from true to false/ false to true
      **/
     public void toggleCompletion() {
-        isCompleted ^= true;
-    }
-
-    public boolean getIsCompleted() {
-        return this.isCompleted;
+        isCompleted = !isCompleted;
     }
 
     public String getCompletionString() {
