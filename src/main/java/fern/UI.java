@@ -6,12 +6,6 @@ import java.util.ArrayList;
  * Class for handling all the UI elements like greetings
  */
 public class UI {
-    private final static String LINE = "-----------------------------------------";
-    private final static String NAME = ",------.  \n"
-            + "|  .---',---. ,--.--.,--,--,  \n"
-            + "|  `--,| .-. :|  .--'|      \\ \n"
-            + "|  |`  \\   --.|  |   |  ||  | \n"
-            + "`--'    `----'`--'   `--''--' \n";
     /**
      * Print all items in TaskList
      **/
@@ -46,25 +40,9 @@ public class UI {
     }
 
     /**
-     * Make fern speak input
-     **/
-    public static void say(String msg) {
-        System.out.println("Fern: " + msg);
-    }
-
-    /**
-     * Make fern say greetings
-     **/
-    public static void start() {
-        System.out.println(LINE);
-        say("Hii, i am\n" + NAME + "Whats up?");
-    }
-
-    /**
      * Make fern say goodbye
      **/
-    protected static void end() {
-        say("Byebye~~");
-        System.out.println(LINE);
+    protected static String end() {
+        return "Bye bye~~";
     }
 }

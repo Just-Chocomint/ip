@@ -15,45 +15,16 @@ public class Fern {
         try {
             storage.loadStorage(tasks);
         } catch (IOException | FernException e) {
-            UI.say("Failed to load file, reload app pls");
             System.exit(1);
         }
     }
+
     /**
-     * Starts the chatbot
+     * Gets Bot's response to userInput
      */
-    public static void main(String[] args) {
-        try {
-            storage.loadStorage(tasks);
-        } catch (IOException | FernException e) {
-            UI.say("Failed to load file, reload app pls");
-            System.exit(1);
-        }
-
-        UI.start();
-        Scanner scanner = new Scanner(System.in);
-        while(true) {
-            System.out.print("You: \n");
-            String userInput = scanner.nextLine().trim();
-            if (userInput.equalsIgnoreCase("bye")) {
-                break;
-            } else if (userInput.equalsIgnoreCase("list")) {
-                UI.printList(tasks);
-                continue;
-            }
-            try {
-                commands.handle(userInput);
-            } catch (FernException e){
-                UI.say(e.getMessage());
-            }
-        }
-        UI.end();
-        scanner.close();
-    }
-
     public String getResponse(String userInput) {
         if (userInput.equalsIgnoreCase("bye")) {
-            return "Bye Bye~~";
+            return UI.end();
         } else if (userInput.equalsIgnoreCase("list")) {
             return UI.printList(tasks);
         } else {

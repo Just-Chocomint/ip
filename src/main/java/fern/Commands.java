@@ -53,7 +53,7 @@ public class Commands {
     }
 
     /**
-     * Handle marking/unmarking tasks
+     * Toggles completion state of a task specified by the user
      * @throws FernException if updating storage fails
      **/
     private String handleMark() throws FernException {
@@ -67,7 +67,7 @@ public class Commands {
         } catch (IOException e) {
             throw new FernException("Fail to update storage");
         }
-        String completion = tasks.get(markIdx).isCompleted ? "marked" : "unmarked";
+        String completion = tasks.get(markIdx).getCompletion() ? "marked" : "unmarked";
         return ("(" + tasks.get(markIdx).getDescription() + ") " + completion);
     }
 
@@ -76,7 +76,7 @@ public class Commands {
      * @throws FernException if inputted task is empty
      **/
     private String handleToDo() throws FernException {
-        String taskDescription = userInput.substring(4).trim();
+        String taskDescription = userInput.substring("todo".length()).trim();
         if (taskDescription.isEmpty()) {
             throw new IncompleteCommandException("Description");
         }
@@ -92,7 +92,7 @@ public class Commands {
     private String handleDeadline() throws FernException {
         int startOfDate = userInput.indexOf("/by");
         if (startOfDate > 0) {
-            String taskDescription = userInput.substring(8, startOfDate).trim();
+            String taskDescription = userInput.substring("deadline".length(), startOfDate).trim();
             String byString = userInput.substring(startOfDate + 4);
             LocalDate by = DateHandler.stringToDate(byString.trim());
             tasks.add(new Deadline(taskDescription, by));
@@ -110,7 +110,7 @@ public class Commands {
         int startOfFrom = userInput.indexOf("/from");
         int startOfTo = userInput.indexOf("/to");
         if (startOfFrom > 0 && startOfTo > 0) {
-            String taskDescription = userInput.substring(5, startOfFrom).trim();
+            String taskDescription = userInput.substring("event".length(), startOfFrom).trim();
             String fromString = userInput.substring(startOfFrom + 6, startOfTo);
             String toString = userInput.substring(startOfTo + 4);
             LocalDate from = DateHandler.stringToDate(fromString.trim());
@@ -158,11 +158,11 @@ public class Commands {
         try { // try block to parse task number from string to int
             int idx = Integer.parseInt(userInputSplit[1]) - 1;
             if (idx >= tasks.size() || idx < 0) {
-                throw new FernException("Fern: that task no exist");
+                throw new FernException("that task no exist");
             } else if (userInputSplit[0].equals("mark") && tasks.get(idx).getCompletion()) {
-                throw new FernException("Fern: u alr completed");
+                throw new FernException("u alr completed");
             } else if (userInputSplit[0].equals("unmark") && !tasks.get(idx).getCompletion()) {
-                throw new FernException("Fern: it was alr unmarked bruh");
+                throw new FernException("it was alr unmarked bruh");
             }
             return idx;
         } catch (NumberFormatException e) {

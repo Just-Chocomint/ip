@@ -16,6 +16,11 @@ public class Storage {
     private static final String TODO = "T";
     private static final String DEADLINE = "D";
     private static final String EVENT = "E";
+    private static final int TYPE_INDEX = 0;
+    private static final int COMPLETED_INDEX = 1;
+    private static final int DESCRIPTION_INDEX = 2;
+    private static final int FIRST_DATE_INDEX = 3;
+    private static final int SECOND_DATE_INDEX = 4;
 
     /**
      * Initialise Storage if it doesn't exist, load into taskList if exists
@@ -31,20 +36,22 @@ public class Storage {
         // Parse lines into tasks to add into taskList
         for (String task : Files.readAllLines(PATH)) {
             String[] splitLine = task.split(SEPARATOR);
-            assert splitLine.length >= 3 : "Stored task need to have 3 fields";
-            boolean completed = splitLine[1].equals("1");
-            switch (splitLine[0]){
+            if (splitLine.length < 3) {
+                throw new FernException("Corrupted storage file");
+            }
+            boolean completed = splitLine[COMPLETED_INDEX].equals("1");
+            switch (splitLine[TYPE_INDEX]){
                 case TODO:
-                    taskList.addWithoutStorage(new ToDo(splitLine[2], completed));
+                    taskList.addWithoutStorage(new ToDo(splitLine[DESCRIPTION_INDEX], completed));
                     break;
                 case DEADLINE:
-                    LocalDate by = DateHandler.stringToDate(splitLine[3]);
-                    taskList.addWithoutStorage(new Deadline(splitLine[2], by, completed));
+                    LocalDate by = DateHandler.stringToDate(splitLine[FIRST_DATE_INDEX]);
+                    taskList.addWithoutStorage(new Deadline(splitLine[DESCRIPTION_INDEX], by, completed));
                     break;
                 case EVENT:
-                    LocalDate from = DateHandler.stringToDate(splitLine[3]);
-                    LocalDate to = DateHandler.stringToDate(splitLine[4]);
-                    taskList.addWithoutStorage(new Event(splitLine[2], from, to, completed));
+                    LocalDate from = DateHandler.stringToDate(splitLine[FIRST_DATE_INDEX]);
+                    LocalDate to = DateHandler.stringToDate(splitLine[SECOND_DATE_INDEX]);
+                    taskList.addWithoutStorage(new Event(splitLine[DESCRIPTION_INDEX], from, to, completed));
                     break;
                 default:
                     throw new FernException("Unknown task type");
@@ -53,11 +60,11 @@ public class Storage {
     }
 
     /**
-    * Add tasks to storage
+    * Add task objects into storage file
     **/
     public void add(Task task) throws IOException, FernException {
         String taskString = task.getType() + SEPARATOR
-                + (task.getIsCompleted() ? "1" : "0") + SEPARATOR
+                + (task.getCompletion() ? "1" : "0") + SEPARATOR
                 + task.getDescription();
         if (task.getType().equals(DEADLINE)) {
             taskString += SEPARATOR + DateHandler.dateToString(task.getFirstDate());
@@ -70,7 +77,7 @@ public class Storage {
     }
 
     /**
-    * Overwrite storage file with task list
+    * Overwrite storage file with input task list
     **/
     public void updateAll(TaskList taskList) throws IOException, FernException {
         Files.writeString(PATH, "");
