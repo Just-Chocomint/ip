@@ -27,6 +27,7 @@ public class Storage {
      * @param taskList task list to load tasks into
      **/
     public void loadStorage(TaskList taskList) throws IOException, FernException {
+        assert taskList != null : "TaskList to be loaded cannot be null";
         if (Files.notExists((PATH))) {
             Files.createDirectories(PATH.getParent());
             Files.createFile(PATH);

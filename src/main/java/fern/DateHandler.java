@@ -42,6 +42,7 @@ public class DateHandler {
      * @param userInput Date string to be converted to LocalDate object
      **/
     public static LocalDate stringToDate(String userInput) throws FernException {
+        assert userInput != null : "date string should not be null";
         LocalDate dateTime = LocalDate.now();
         // Loop through the formats to parse user input
         for (DateTimeFormatter format : FORMATS) {
@@ -60,6 +61,7 @@ public class DateHandler {
      * @param dateTime LocalDate object to be converted to string
      **/
     public static String dateToString(LocalDate dateTime) throws FernException {
+        assert dateTime != null : "Date object shouldnt be null";
         try {
             return dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         } catch (DateTimeParseException e) {
