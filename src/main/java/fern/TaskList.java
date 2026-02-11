@@ -44,6 +44,7 @@ public class TaskList {
      * @throws FernException when storage update fails
      **/
     public void remove(int idx) throws FernException {
+        assert idx >= 0 && idx < tasks.size() : "Index out of range";
         tasks.remove(idx);
         try {
             storage.updateAll(this);
@@ -70,6 +71,7 @@ public class TaskList {
      * @param idx index of task to be gotten
      **/
     public Task get(int idx) {
+        assert idx >= 0 && idx < tasks.size() : "index not out of range";
         return tasks.get(idx);
     }
 
