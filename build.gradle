@@ -48,6 +48,7 @@ application {
 shadowJar {
     archiveBaseName = "fern"
     archiveClassifier = null
+    archiveFileName = 'fern.jar'
 }
 
 run{

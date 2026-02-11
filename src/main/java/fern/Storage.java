@@ -22,6 +22,7 @@ public class Storage {
      * @param taskList task list to load tasks into
      **/
     public void loadStorage(TaskList taskList) throws IOException, FernException {
+        assert taskList != null : "TaskList to be loaded cannot be null";
         if (Files.notExists((PATH))) {
             Files.createDirectories(PATH.getParent());
             Files.createFile(PATH);
@@ -30,6 +31,7 @@ public class Storage {
         // Parse lines into tasks to add into taskList
         for (String task : Files.readAllLines(PATH)) {
             String[] splitLine = task.split(SEPARATOR);
+            assert splitLine.length >= 3 : "Stored task need to have 3 fields";
             boolean completed = splitLine[1].equals("1");
             switch (splitLine[0]){
                 case TODO:

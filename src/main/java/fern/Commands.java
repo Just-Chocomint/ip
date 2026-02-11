@@ -18,6 +18,7 @@ public class Commands {
     * @param taskList the list to operate the commands on
     **/
     public Commands(TaskList taskList) {
+        assert taskList != null: "Task list is null";
         this.tasks = taskList;
     }
 
@@ -26,6 +27,8 @@ public class Commands {
     * @param userInput full user input
     **/
     public String handle(String userInput) throws FernException {
+        assert userInput != null : "input string cant be null";
+
         this.userInput = userInput;
         this.userInputSplit = userInput.split(" ");
         String firstWord = userInputSplit[0].toLowerCase();
