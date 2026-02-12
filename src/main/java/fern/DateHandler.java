@@ -1,9 +1,11 @@
 package fern;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Locale;
 
 /**
@@ -43,7 +45,13 @@ public class DateHandler {
      **/
     public static LocalDate stringToDate(String userInput) throws FernException {
         assert userInput != null : "date string should not be null";
-        LocalDate dateTime = LocalDate.now();
+//        LocalDate dateTime = LocalDate.now();
+
+        LocalDate dateTime = parseNextWeekday(userInput);
+        if (dateTime != null) {
+            return dateTime;
+        }
+
         // Loop through the formats to parse user input
         for (DateTimeFormatter format : FORMATS) {
             try {
@@ -67,5 +75,39 @@ public class DateHandler {
         } catch (DateTimeParseException e) {
             throw new FernException("Don't understand date");
         }
+    }
+
+    /**
+     * Converts weekday string into LocalDate object
+     * @param input String to be converted to LocalDate
+     **/
+    private static LocalDate parseNextWeekday(String input) {
+        DayOfWeek day;
+        switch (input.toLowerCase()) {
+        case "monday":
+        case "mon":
+            day = DayOfWeek.MONDAY; break;
+        case "tuesday":
+        case "tue":
+            day = DayOfWeek.TUESDAY; break;
+        case "wednesday":
+        case "wed":
+            day = DayOfWeek.WEDNESDAY; break;
+        case "thursday":
+        case "thu":
+            day = DayOfWeek.THURSDAY; break;
+        case "friday":
+        case "fri":
+            day = DayOfWeek.FRIDAY; break;
+        case "saturday":
+        case "sat":
+            day = DayOfWeek.SATURDAY; break;
+        case "sunday":
+        case "sun":
+            day = DayOfWeek.SUNDAY; break;
+        default:
+            return null;
+        }
+        return LocalDate.now().with(TemporalAdjusters.next(day));
     }
 }
