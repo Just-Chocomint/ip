@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Executes the commands that user inputs
+ * Executes the commands that user inputs.
  */
 public class Commands {
     private final TaskList tasks;
@@ -14,18 +14,22 @@ public class Commands {
     private String userInput;
 
     /**
-    * Constructor
-    * @param taskList the list to operate the commands on
-    **/
+     * Constructs a Commands object.
+     *
+     * @param taskList the list to operate the commands on
+     */
     public Commands(TaskList taskList) {
         assert taskList != null: "Task list is null";
         this.tasks = taskList;
     }
 
     /**
-    * Handle user input into commands
-    * @param userInput full user input
-    **/
+     * Handles user input and executes corresponding commands.
+     *
+     * @param userInput full user input
+     * @return response message after executing command
+     * @throws FernException if command is unknown or invalid
+     */
     public String handle(String userInput) throws FernException {
         assert userInput != null : "input string cant be null";
 
@@ -53,28 +57,32 @@ public class Commands {
     }
 
     /**
-     * Toggles completion state of a task specified by the user
+     * Toggles completion state of a task specified by the user.
+     *
+     * @return message indicating task completion status
      * @throws FernException if updating storage fails
-     **/
+     */
     private String handleMark() throws FernException {
         if (userInputSplit.length < 2) {
-            throw new IncompleteCommandException("Task nunmber");
+            throw new IncompleteCommandException("Task number");
         }
         int markIdx = checkTaskExist();
         tasks.get(markIdx).toggleCompletion();
         try {
             storage.updateAll(tasks);
         } catch (IOException e) {
-            throw new FernException("Fail to update storage");
+            throw new FernException("Failed to update storage");
         }
         String completion = tasks.get(markIdx).getCompletion() ? "marked" : "unmarked";
         return ("(" + tasks.get(markIdx).getDescription() + ") " + completion);
     }
 
     /**
-     * Handle checking and adding todo tasks
-     * @throws FernException if inputted task is empty
-     **/
+     * Handles checking and adding todo tasks.
+     *
+     * @return message confirming todo addition
+     * @throws FernException if inputted task description is empty
+     */
     private String handleToDo() throws FernException {
         String taskDescription = userInput.substring("todo".length()).trim();
         if (taskDescription.isEmpty()) {
@@ -86,9 +94,11 @@ public class Commands {
     }
 
     /**
-     * Handle checking and adding Deadline tasks
+     * Handles checking and adding deadline tasks.
+     *
+     * @return message confirming deadline addition
      * @throws FernException if missing deadline in user input
-     **/
+     */
     private String handleDeadline() throws FernException {
         int startOfDate = userInput.indexOf("/by");
         if (startOfDate > 0) {
@@ -103,9 +113,11 @@ public class Commands {
     }
 
     /**
-     * Handle checking and adding Event tasks
+     * Handles checking and adding event tasks.
+     *
+     * @return message confirming event addition
      * @throws FernException if /from or /to is missing
-     **/
+     */
     private String handleEvent() throws FernException {
         int startOfFrom = userInput.indexOf("/from");
         int startOfTo = userInput.indexOf("/to");
@@ -123,12 +135,14 @@ public class Commands {
     }
 
     /**
-     * Handle deleting tasks
-     * @throws FernException if task to be deleted not specified
-     **/
+     * Handles deleting tasks.
+     *
+     * @return message confirming task deletion
+     * @throws FernException if task to be deleted is not specified
+     */
     private String handleDelete() throws FernException {
         if (userInputSplit.length < 2) {
-            throw new IncompleteCommandException("Task nunmber");
+            throw new IncompleteCommandException("Task number");
         }
         int deleteIdx = checkTaskExist();
         String deletedText = tasks.get(deleteIdx).toString();
@@ -137,9 +151,11 @@ public class Commands {
     }
 
     /**
-     * Handle searching for keyword
+     * Handles searching for keyword in tasks.
+     *
+     * @return formatted string of matching tasks
      * @throws FernException if no keyword to search
-     **/
+     */
     private String handleFind() throws FernException {
         if (userInputSplit.length < 2) {
             throw new IncompleteCommandException("Keyword missing");
@@ -150,12 +166,13 @@ public class Commands {
     }
 
     /**
-     * Check that task exists
-     * @throws FernException if task specified by user does not exist
-     * Return index if there is no problem
-     **/
+     * Checks that task exists and validates mark/unmark operations.
+     *
+     * @return task index if valid
+     * @throws FernException if task specified by user does not exist or operation is invalid
+     */
     private int checkTaskExist() throws FernException {
-        try { // try block to parse task number from string to int
+        try { // Try block to parse task number from string to int
             int idx = Integer.parseInt(userInputSplit[1]) - 1;
             if (idx >= tasks.size() || idx < 0) {
                 throw new FernException("that task no exist");

@@ -9,7 +9,7 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Locale;
 
 /**
- * Class for parsing and formatting dates
+ * Handles parsing and formatting of dates for the application.
  */
 public class DateHandler {
     /** Different date formats the user might enter */
@@ -40,12 +40,14 @@ public class DateHandler {
     };
 
     /**
-     * Converts string into LocalDate
+     * Converts string into LocalDate.
+     *
      * @param userInput Date string to be converted to LocalDate object
-     **/
+     * @return LocalDate object representing the parsed date
+     * @throws FernException if date format is incorrect or cannot be parsed
+     */
     public static LocalDate stringToDate(String userInput) throws FernException {
         assert userInput != null : "date string should not be null";
-//        LocalDate dateTime = LocalDate.now();
 
         LocalDate dateTime = parseNextWeekday(userInput);
         if (dateTime != null) {
@@ -58,16 +60,19 @@ public class DateHandler {
                 dateTime = LocalDate.parse(userInput.trim(), format);
                 return dateTime;
             } catch (DateTimeParseException e) {
-                // skip to next format to check
+                // Skip to next format to check
             }
         }
         throw new FernException("Date format incorrect, try d/M/yyyy or Day Month Year");
     }
 
     /**
-     * Converts LocalDate object into string
+     * Converts LocalDate object into string.
+     *
      * @param dateTime LocalDate object to be converted to string
-     **/
+     * @return formatted date string in dd/MM/yyyy format
+     * @throws FernException if date formatting fails
+     */
     public static String dateToString(LocalDate dateTime) throws FernException {
         assert dateTime != null : "Date object shouldnt be null";
         try {
@@ -78,9 +83,11 @@ public class DateHandler {
     }
 
     /**
-     * Converts weekday string into LocalDate object
-     * @param input String to be converted to LocalDate
-     **/
+     * Converts weekday string into LocalDate object for the next occurrence.
+     *
+     * @param input String to be converted to LocalDate (weekday name)
+     * @return LocalDate object representing the next occurrence of the weekday, or null if input is invalid
+     */
     private static LocalDate parseNextWeekday(String input) {
         DayOfWeek day;
         switch (input.toLowerCase()) {

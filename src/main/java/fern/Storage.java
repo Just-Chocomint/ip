@@ -8,7 +8,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 
 /**
- * Class to handle storing and retrieving data from file
+ * Handles storing and retrieving data from file for persistence.
  */
 public class Storage {
     private static final Path PATH = Paths.get("./data/fern.txt");
@@ -23,12 +23,15 @@ public class Storage {
     private static final int SECOND_DATE_INDEX = 4;
 
     /**
-     * Initialise Storage if it doesn't exist, load into taskList if exists
+     * Initializes Storage if it doesn't exist, loads into taskList if exists.
+     *
      * @param taskList task list to load tasks into
-     **/
+     * @throws IOException if file operations fail
+     * @throws FernException if storage file is corrupted
+     */
     public void loadStorage(TaskList taskList) throws IOException, FernException {
         assert taskList != null : "TaskList to be loaded cannot be null";
-        if (Files.notExists((PATH))) {
+        if (Files.notExists(PATH)) {
             Files.createDirectories(PATH.getParent());
             Files.createFile(PATH);
         }
@@ -60,8 +63,12 @@ public class Storage {
     }
 
     /**
-    * Add task objects into storage file
-    **/
+     * Adds task objects into storage file.
+     *
+     * @param task the task to be added to storage
+     * @throws IOException if file operations fail
+     * @throws FernException if date formatting fails
+     */
     public void add(Task task) throws IOException, FernException {
         String taskString = task.getType() + SEPARATOR
                 + (task.getCompletion() ? "1" : "0") + SEPARATOR
@@ -77,8 +84,12 @@ public class Storage {
     }
 
     /**
-    * Overwrite storage file with input task list
-    **/
+     * Overwrites storage file with input task list.
+     *
+     * @param taskList the task list to save to storage
+     * @throws IOException if file operations fail
+     * @throws FernException if date formatting fails
+     */
     public void updateAll(TaskList taskList) throws IOException, FernException {
         Files.writeString(PATH, "");
         for (Task task: taskList.getAll()) {

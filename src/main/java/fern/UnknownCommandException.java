@@ -1,7 +1,13 @@
 package fern;
 
+/**
+ * Represents an exception for unknown commands.
+ */
 public class UnknownCommandException extends FernException {
+    /**
+     * Constructs an UnknownCommandException.
+     */
     public UnknownCommandException() {
-        super("Fern: ? idk that command");
+        super("Unknown command. Type 'help' for available commands.");
     }
 }
