@@ -1,20 +1,25 @@
 package fern;
 
 /**
- * Class for tasks with no dates
+ * Represents a task with no dates.
  */
 public class ToDo extends Task {
     private static final String TYPE = "T";
     /**
-     * Constructor that takes in description
-     **/
+     * Constructs a ToDo task with description.
+     *
+     * @param description the task description
+     */
     public ToDo(String description) {
         super(description);
     }
 
     /**
-     * Constructor that takes in description and completion status
-     **/
+     * Constructs a ToDo task with description and completion status.
+     *
+     * @param description the task description
+     * @param completed the completion status of the task
+     */
     public ToDo(String description, boolean completed) {
         super(description, completed);
     }

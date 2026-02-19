@@ -3,23 +3,30 @@ package fern;
 import java.time.LocalDate;
 
 /**
- * Class for tasks with deadline
+ * Represents a task with a deadline.
  */
 public class Deadline extends Task {
     private final LocalDate by;
     private static final String TYPE = "D";
 
     /**
-     * Constructor that takes in description and deadline
-     **/
+     * Constructs a Deadline task with description and deadline.
+     *
+     * @param description the task description
+     * @param by the deadline date
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
     }
 
     /**
-     * Constructor that takes in description, deadline and the completion status if the task
-     **/
+     * Constructs a Deadline task with description, deadline and completion status.
+     *
+     * @param description the task description
+     * @param by the deadline date
+     * @param isCompleted the completion status of the task
+     */
     public Deadline(String description, LocalDate by, boolean isCompleted) {
         super(description, isCompleted);
         this.by = by;

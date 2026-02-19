@@ -3,7 +3,7 @@ package fern;
 import java.time.LocalDate;
 
 /**
- * Class for tasks with start and end date
+ * Represents a task with start and end dates.
  */
 public class Event extends Task {
     private final LocalDate from;
@@ -11,8 +11,12 @@ public class Event extends Task {
     private static final String TYPE = "E";
 
     /**
-     * Constructor that takes in description, from and to
-     **/
+     * Constructs an Event task with description, start and end dates.
+     *
+     * @param description the task description
+     * @param from the start date
+     * @param to the end date
+     */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
@@ -20,8 +24,13 @@ public class Event extends Task {
     }
 
     /**
-     * Constructor that takes in description, from, to and completion status of task
-     **/
+     * Constructs an Event task with description, start date, end date and completion status.
+     *
+     * @param description the task description
+     * @param from the start date
+     * @param to the end date
+     * @param isCompleted the completion status of the task
+     */
     public Event(String description, LocalDate from, LocalDate to, boolean isCompleted) {
         super(description, isCompleted);
         this.from = from;
@@ -39,8 +48,10 @@ public class Event extends Task {
     }
 
     /**
-     * Return "E" for Events
-     **/
+     * Returns "E" for Events.
+     *
+     * @return the task type "E"
+     */
     @Override
     public String getType() {
         return TYPE;
