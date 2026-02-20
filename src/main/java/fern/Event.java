@@ -61,7 +61,7 @@ public class Event extends Task {
     public String toString() {
         try {
             return "[Event]" + super.toString() + " (From: "
-                    + DateHandler.dateToString(from) + "| To: "
+                    + DateHandler.dateToString(from) + " | To: "
                     + DateHandler.dateToString(to) +")";
 
         } catch (FernException e) {
