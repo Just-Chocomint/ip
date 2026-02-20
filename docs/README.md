@@ -39,6 +39,9 @@ Fern has been tested on the following platforms:
 **Kali Linux 2024.2 (Rolling) Debian-based**
 - Java 21.0.3
 
+**macOS 15.7.3**
+- Java 17.0.14
+
 ---
 ## Features
 
