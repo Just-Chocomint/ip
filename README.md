@@ -1,6 +1,6 @@
 # Fern User Guide
 
-![Fern UI](Ui.png)
+![Fern UI](/docs/Ui.png)
 
 Fern is a chatbot that helps you keep track of your tasks efficiently. Whether you have simple to-do items, deadlines, or events spanning multiple days, Fern has got you covered. This User Guide is generated with the help of AI
 
