@@ -1,26 +1,217 @@
-# Duke project template
+# Fern User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Fern UI](Ui.png)
 
-## Setting up in Intellij
+Fern is a chatbot that helps you keep track of your tasks efficiently. Whether you have simple to-do items, deadlines, or events spanning multiple days, Fern has got you covered. This User Guide is generated with the help of AI
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+---
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Features](#features)
+  - [Listing Tasks](#-listing-tasks)
+  - [Adding Tasks](#-adding-tasks)
+    - [To-Do Tasks](#-to-do-tasks)
+    - [Deadline Tasks](#-deadline-tasks)
+    - [Event Tasks](#-event-tasks)
+  - [Managing Tasks](#managing-tasks)
+    - [Marking Tasks as Complete](#-marking-tasks-as-complete)
+    - [Unmarking Tasks](#-unmarking-tasks)
+    - [Deleting Tasks](#-deleting-tasks)
+    - [Finding Tasks](#-finding-tasks)
+- [Date Formats](#date-formats)
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+## Getting Started
+
+### How to Download:
+1. Download the application from [here](https://github.com/Just-Chocomint/ip/releases)
+2. Run the application and start managing your tasks! 😄
+
+### Tested Platforms
+
+Fern has been tested on the following platforms:
+
+**Windows 11 Home**
+- Java 24.0.1
+- Java 17.0.12
+
+**Kali Linux 2024.2 (Rolling) Debian-based**
+- Java 21.0.3
+
+**macOS 15.7.3**
+- Java 17.0.14
+
+---
+## Features
+
+### 📋 Listing Tasks
+
+View all your current tasks with their completion status.
+
+**Command:** `list`
+
+**Example:**
+```
+list
+```
+
+**Expected Output:**
+```
+01. [To Do][ ] Read book
+02. [Deadline][X] Submit assignment (by: 25/02/2026)
+03. [Event][ ] Team meeting (From: 26/02/2026 | To: 26/02/2026)
+```
+
+---
+
+### ➕ Adding Tasks
+
+#### 📝 To-Do Tasks
+
+Add simple tasks without any dates.
+
+**Command:** `todo <task_description>`
+
+**Example:**
+```
+todo Read book
+```
+
+**Expected Output:**
+```
+Added ToDo (Read book)
+```
+
+<br>
+
+#### ⏰ Deadline Tasks
+
+Add tasks that need to be completed by a specific date.
+
+**Command:** `deadline <task_description> /by <deadline>`
+
+**Example:**
+```
+deadline Submit assignment /by 25/02/2026
+```
+
+**Expected Output:**
+```
+Added Deadline (Submit assignment)
+```
+
+<br>
+
+#### 📅 Event Tasks
+
+Add events that span from a start date to an end date.
+
+**Command:** `event <task_description> /from <start_date> /to <end_date>`
+
+**Example:**
+```
+event Team meeting /from 26/02/2026 /to 27/02/2026
+```
+
+**Expected Output:**
+```
+Added Event (Team meeting)
+```
+
+<br>
+
+---
+
+### Managing Tasks
+
+#### ✅ Marking Tasks as Complete
+
+Mark a task as completed using its number from the list.
+
+**Command:** `mark <task_number>`
+
+**Example:**
+```
+mark 1
+```
+
+**Expected Output:**
+```
+(Read book) marked
+```
+
+<br>
+
+#### ↩️ Unmarking Tasks
+
+Unmark a task to mark it as incomplete again.
+
+**Command:** `unmark <task_number>`
+
+**Example:**
+```
+unmark 1
+```
+
+**Expected Output:**
+```
+(Read book) unmarked
+```
+
+<br>
+
+#### 🗑️ Deleting Tasks
+
+Remove a task from your list permanently.
+
+**Command:** `delete <task_number>`
+
+**Example:**
+```
+delete 1
+```
+
+**Expected Output:**
+```
+([To Do][ ] Read book) deleted. Left 2 Tasks
+```
+
+<br>
+
+#### 🔍 Finding Tasks
+
+Search for tasks containing a specific keyword.
+
+**Command:** `find <keyword>`
+
+**Example:**
+```
+find book
+```
+
+**Expected Output:**
+```
+01. [To Do][ ] Read book
+```
+
+---
+## Date Formats
+
+Fern supports multiple date formats for your convenience:
+
+- **Numeric format:** `25/2/2026` or `25/02/2026`
+- **Short month names:** `25 Feb 2026` or `25 Feb`
+- **Full month names:** `25 February 2026` or `25 February`
+- **Weekday names:** `monday`, `mon`, `tuesday`, `tue`, etc. (automatically finds the next occurrence)
+
+**Examples:**
+```
+deadline Meeting /by monday
+event Conference /from 15 Mar /to 17 Mar
+todo Call mom
+```
+
+---
+
+Enjoy using Fern to manage your tasks efficiently! 🌿
